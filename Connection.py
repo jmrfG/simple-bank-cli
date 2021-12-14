@@ -10,14 +10,15 @@ class Connection:
         )
 
     def insert(self, customer):
-        name, age, income = customer
+        name, age, income, acc_type = customer.getCustomer()
         try:
             cursor = self._db.cursor()
-            sql_statement = f"""INSERT into customers values (default, '{name}',{age},{income})"""
+            sql_statement = f"""INSERT into customers values (default, '{name}',{age},{income}, {acc_type})"""
             cursor.execute(sql_statement)
-            cursor.commit()
+            self._db.commit()
         except:
-            return "Error 69"
+            print("Error 69")
+        
 
     def pullData(self):
         try:
@@ -28,3 +29,4 @@ class Connection:
         except:
             return "That's hot"
         return data
+

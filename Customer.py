@@ -1,20 +1,24 @@
 class Customer:
-    def __init__(self, name, age, income, acc_type) -> None:
-        self.__name = name
-        self.__age = age
-        self.__income = income
-        self.__acc_type = acc_type
+    def __init__(self, name, age, income, acc_type):
+        self.name = name
+        self.age = age
+        self.income = income
+        self.acc_type = acc_type
         
     def getName(self):
-        return self.__name
+        return self.name
 
     def getAge(self):
-        return self.__age
+        return self.age
 
     def getIncome(self):
-        return self.__income
+        return self.income
 
     def getAccType(self):
-        return self.__acc_type
+        return self.acc_type
 
-    
+    def getCustomer(self):
+        return (self.name, self.age, self.income, self.acc_type)
+
+
+
