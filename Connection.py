@@ -10,10 +10,10 @@ class Connection:
         )
 
     def insert(self, customer):
-        name, age, income, acc_type = customer.getCustomer()
+        name, age, balance, acc_type = customer.getCustomer()
         try:
             cursor = self._db.cursor()
-            sql_statement = f"""INSERT into customers values (default, '{name}',{age},{income}, {acc_type})"""
+            sql_statement = f"""INSERT into customers values (default, '{name}',{age},{balance}, {acc_type})"""
             cursor.execute(sql_statement)
             self._db.commit()
         except:
@@ -30,3 +30,6 @@ class Connection:
             return "That's hot"
         return data
 
+
+    def endConnection(self):
+        self._db.close()

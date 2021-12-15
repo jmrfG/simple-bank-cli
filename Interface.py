@@ -24,7 +24,7 @@ def main():
 
         1 - Create Account
 
-        2 - HOLDER
+        2 - List Costumers
 
         3 - HOLDER
         """
@@ -34,21 +34,36 @@ def main():
         
         if action == 1:
             createAccount(connection)
+        
+        elif action == 2:
+            printCostumers(connection)
 
     except:
         print("Wrong username or password")
 
+
 def createAccount(connection):
     name = input("Insert the customer's name: ")
     age = int(input("Insert the customer's age: "))
-    income = float(input("Insert the customer's income: "))
+    balance = float(input("Insert the customer's balance: "))
     acc_type = int(input("Insert the customer's account type: "))
 
-    C = Customer(name,age,income,acc_type)
+    C = Customer(name,age,balance,acc_type)
     Registor = Register(C, connection)
     Registor.register()
 
-
+def printCostumers(connection):
+    data = connection.pullData()
+    
+    for d in data:
+        T = f"""
+        -----------------------
+        Name: {d[1]}
+        Age: {d[2]}
+        Balance: {d[3]} 
+        -----------------------
+        """
+        print(T)
 
 if __name__ == "__main__":
     main()
