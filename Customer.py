@@ -1,3 +1,5 @@
+
+### Perhaps unnecessary code (might be removed)
 class Customer:
     def __init__(self, name, age, balance, acc_type):
         self.name = name

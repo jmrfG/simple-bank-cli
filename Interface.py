@@ -26,7 +26,10 @@ def main():
 
         2 - List Costumers
 
-        3 - HOLDER
+        3 - Deposit
+
+        4 - Withdraw
+
         """
         print(TEXT)
 
@@ -38,8 +41,15 @@ def main():
         elif action == 2:
             printCostumers(connection)
 
+        elif action == 3:
+            Deposit(connection)
+        
+        elif action == 4:
+            Withdraw(connection)
+
     except:
         print("Wrong username or password")
+        connection.endConnection()
 
 
 def createAccount(connection):
@@ -58,6 +68,7 @@ def printCostumers(connection):
     for d in data:
         T = f"""
         -----------------------
+        ID: {d[0]}
         Name: {d[1]}
         Age: {d[2]}
         Balance: {d[3]} 
@@ -65,5 +76,32 @@ def printCostumers(connection):
         """
         print(T)
 
+def Deposit(connection):
+    try:
+        col = "balance"
+        c = int(input("What's the customer's ID? "))
+        val = float(input("How much would you like to deposit? "))
+        balance = connection.pullData()[3]
+        connection.updateData(col,balance+val,c)
+        print(f"You've successfully deposited {val} dollars to the account_id {c}")
+    except:
+        return "The operation has failed"
+    
+
+def Withdraw(connection):
+    try:
+        col = "balance"
+        c = int(input("What's the customer's ID? "))
+        val = float(input("How much would you like to withdraw? "))
+        balance = connection.pullData()[3]
+        if balance - val > 0:
+            connection.updateData(col,balance+val,c)
+        else:
+            print("Insuficient funds")
+    except:
+        return "The operation has failed"
+
+
 if __name__ == "__main__":
+
     main()
