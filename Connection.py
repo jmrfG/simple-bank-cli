@@ -31,14 +31,12 @@ class Connection:
             return "That's hot"
         return data
 
-    def updateData(self, column, value, condition):
+    def updateData(self, value, id):
         try:
             cursor = self._db.cursor()
-            sql_statement = f"""
-            UPDATE consumers
-            SET {column} = {value}
-            WHERE ID = {condition};
-            """
+            sql_statement = f"""UPDATE customers
+	SET balance={value}
+	WHERE ID={id};"""
             cursor.execute(sql_statement)
             self._db.commit()
         except:

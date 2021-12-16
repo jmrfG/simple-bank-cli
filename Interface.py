@@ -78,14 +78,15 @@ def printCostumers(connection):
 
 def Deposit(connection):
     try:
-        col = "balance"
         c = int(input("What's the customer's ID? "))
         val = float(input("How much would you like to deposit? "))
-        balance = connection.pullData()[3]
-        connection.updateData(col,balance+val,c)
-        print(f"You've successfully deposited {val} dollars to the account_id {c}")
+        data = connection.pullData()
+
+        for d in data:
+            if d[0] == c:
+                connection.updateData(d[3]+val,c)
     except:
-        return "The operation has failed"
+        print("The operation has failed")
     
 
 def Withdraw(connection):
@@ -93,11 +94,14 @@ def Withdraw(connection):
         col = "balance"
         c = int(input("What's the customer's ID? "))
         val = float(input("How much would you like to withdraw? "))
-        balance = connection.pullData()[3]
-        if balance - val > 0:
-            connection.updateData(col,balance+val,c)
-        else:
-            print("Insuficient funds")
+        data = connection.pullData()
+
+        for d in data:
+            if d[0] == c:
+                if d[3] - val > 0:
+                    connection.updateData(col,d[3]-val,c)
+                else:
+                    print("Insuficient funds")
     except:
         return "The operation has failed"
 
