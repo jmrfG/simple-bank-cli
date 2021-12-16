@@ -91,7 +91,6 @@ def Deposit(connection):
 
 def Withdraw(connection):
     try:
-        col = "balance"
         c = int(input("What's the customer's ID? "))
         val = float(input("How much would you like to withdraw? "))
         data = connection.pullData()
@@ -99,7 +98,7 @@ def Withdraw(connection):
         for d in data:
             if d[0] == c:
                 if d[3] - val > 0:
-                    connection.updateData(col,d[3]-val,c)
+                    connection.updateData(d[3]-val,c)
                 else:
                     print("Insuficient funds")
     except:
