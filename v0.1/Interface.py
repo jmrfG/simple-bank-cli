@@ -105,15 +105,17 @@ def Withdraw(connection, c, val):
                 if d[3] - val > 0:
                     connection.updateData(d[3]-val,c)
                 else:
-                    print("Insuficient funds")
+                    return False
     except:
-        return "The operation has failed"
+        print("Insuficient funds")
+        
 
 def Transfer(connection,fromC, toC, val):
     try:
         Withdraw(connection, fromC, val)
-        Deposit(connection, toC, val)
-        print(f"{val} transfered from {fromC} to {toC}")
+        if Withdraw(connection, fromC, val) is not False:
+            Deposit(connection, toC, val)
+            print(f"{val} transfered from {fromC} to {toC}")
     except:
         return "Invalid operation"
 
