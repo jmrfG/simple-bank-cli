@@ -30,6 +30,7 @@ def main():
 
         4 - Withdraw
 
+        5 - Transfer
         """
         print(TEXT)
 
@@ -42,10 +43,20 @@ def main():
             printCostumers(connection)
 
         elif action == 3:
-            Deposit(connection)
+            c = int(input("What's the customer's ID? "))
+            val = float(input("How much would you like to deposit? "))
+            Deposit(connection, c, val)
         
         elif action == 4:
-            Withdraw(connection)
+            c = int(input("What's the customer's ID? "))
+            val = float(input("How much would you like to withdraw? "))
+            Withdraw(connection, c, val)
+
+        elif action == 5:
+            fromCustomer = int(input("Transfer from customer_ID: "))
+            toCustomer = int(input("Transfer to customer_ID: "))
+            val = float(input("How much would you like to transfer? "))
+            Transfer(connection, fromCustomer, toCustomer, val)
 
     except:
         print("Wrong username or password")
@@ -76,12 +87,9 @@ def printCostumers(connection):
         """
         print(T)
 
-def Deposit(connection):
+def Deposit(connection,c,val):
     try:
-        c = int(input("What's the customer's ID? "))
-        val = float(input("How much would you like to deposit? "))
         data = connection.pullData()
-
         for d in data:
             if d[0] == c:
                 connection.updateData(d[3]+val,c)
@@ -89,12 +97,9 @@ def Deposit(connection):
         print("The operation has failed")
     
 
-def Withdraw(connection):
+def Withdraw(connection, c, val):
     try:
-        c = int(input("What's the customer's ID? "))
-        val = float(input("How much would you like to withdraw? "))
         data = connection.pullData()
-
         for d in data:
             if d[0] == c:
                 if d[3] - val > 0:
@@ -103,6 +108,14 @@ def Withdraw(connection):
                     print("Insuficient funds")
     except:
         return "The operation has failed"
+
+def Transfer(connection,fromC, toC, val):
+    try:
+        Withdraw(connection, fromC, val)
+        Deposit(connection, toC, val)
+        print(f"{val} transfered from {fromC} to {toC}")
+    except:
+        return "Invalid operation"
 
 
 if __name__ == "__main__":
