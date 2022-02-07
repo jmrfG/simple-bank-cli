@@ -4,15 +4,21 @@ from Register import Register
 import os
 import getpass
 
+#INITIALIZE DATABASE HERE
+HOST = ""
+DB = ""
+
+
 
 def main():
+    
     TEXT = """
         ------ Please login into your account ------
     """
     print(TEXT)
-    host = "localhost"
-    db = "banky_boy"
-    user = input("Insert your username: ")
+    host = HOST
+    db = DB
+    user = input("Insert your username: ")          #User and password used in the database.
     pwd = getpass.getpass("Insert your password: ")
 
     try:
